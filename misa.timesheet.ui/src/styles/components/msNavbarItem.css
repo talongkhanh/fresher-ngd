@@ -1,0 +1,21 @@
+.version {
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.13px;
+}
+
+.notification {
+    width: 32px;
+    height: 32px;
+    margin: 0 16px;
+    background-image: url('../../assets/img/notice-icon.svg');
+    background-position: center center;
+}
+
+.user-avatar {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    background-image: url('../../assets/img/Image.jpg');
+    background-size: contain;
+}
