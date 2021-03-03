@@ -1,0 +1,17 @@
+.ms-con-dropdown.active,
+.ms-con-dropdown:focus {
+    outline: none;
+    background: var(--primary);
+}
+
+.ms-con-dropdown:focus>li {
+    color: var(--white);
+}
+
+#choose-status {
+    outline: none;
+}
+
+#choose-status .ms-dropdown-menu {
+    top: 106px;
+}

@@ -4,8 +4,11 @@
 
 @import './components/msNavbar.css';
 @import './components/msNavbarItem.css';
+@import './components/msDropdown.css';
+@import './components/msDropdownItem.css';
 @import './components/msMenu.css';
 @import './layouts/mainLayout.css';
+@import './common/icon.css';
 
 /*----------------------
     Declare Varialbe
@@ -16,6 +19,7 @@
     --primary-bg: #ffede2;
     --white: #fff;
     --black: #050505;
+    --hint-text-color: #ddd;
     --navbar-header-width: 200px;
     --text-box-height: 36px;
     --combo-box-height: 36px;
@@ -65,24 +69,19 @@
 
 * {
     font-family: "Roboto";
-    font-size: 13px;
-    color: var(--black);
+    font-size: 14px;
 }
 
-.mr-24 {
-    margin-right: 24px;
+.m-r-24 {
+    margin-right: 24px !important;
 }
 
-.ml-24 {
-    margin-left: 24px;
+.m-r-8 {
+    margin-right: 8px !important;
 }
 
-.mr-auto {
-    margin-right: auto;
-}
-
-.ml-auto {
-    margin-left: auto;
+.m-l-50 {
+    margin-left: 50px !important;
 }
 
 

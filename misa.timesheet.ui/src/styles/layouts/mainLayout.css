@@ -1,5 +1,5 @@
 #content-arena {
     height: calc(100vh - var(--navbar-height));
     margin-top: var(--navbar-height);
-    background: #000;
+    background: #eee;
 }

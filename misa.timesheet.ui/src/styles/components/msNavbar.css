@@ -3,7 +3,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 2;
     height: var(--navbar-height);
     width: 100%;
 }
@@ -67,4 +67,6 @@
 .ms-con-items {
     height: var(--menu-height);
     width: calc(100vw - var(--navbar-header-width));
+    min-width: 1024px;
+    overflow: hidden;
 }

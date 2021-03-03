@@ -1,5 +1,36 @@
 .menu {
     min-width: 200px;
     height: 100%;
-    background-color: #dde;
+    list-style: none;
+    padding: 0 !important;
+}
+
+.router-item {
+    height: 38px;
+    border: 1px solid transparent;
+    display: block;
+    text-decoration: none;
+    border-radius: 32px;
+}
+
+.router-item:hover {
+    background: var(--primary);
+}
+
+.router-item li {
+    height: 36px;
+    font-weight: 400;
+    padding: 0 16px;
+    margin: 0 4px;
+    color: var(--black);
+}
+
+.router-item.active>li,
+.router-item:hover>li {
+    color: white !important;
+}
+
+.router-item .custom-padding {
+    padding-left: 12px;
+    padding-right: 4px;
 }
