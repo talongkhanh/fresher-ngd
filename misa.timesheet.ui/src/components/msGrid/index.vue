@@ -1,6 +1,10 @@
 <template>
   <div class="ms-grid">
-    <v-simple-table height="calc(100vh - 124px)" fixed-header>
+    <v-simple-table
+      style="border-radius: 0"
+      height="calc(100vh - 201px)"
+      fixed-header
+    >
       <template v-slot:default>
         <thead>
           <tr>
@@ -26,7 +30,7 @@
         <tbody>
           <tr
             class="ms-grid-row"
-            v-for="(item, index) in desserts"
+            v-for="(item, index) in items"
             :key="index"
             :class="{ selected: list.indexOf(item.name) != -1 }"
           >
@@ -52,66 +56,27 @@
         </tbody>
       </template>
     </v-simple-table>
+    <div class="grid-footer"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "MsGrid",
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    },
+    headers: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       isCheckedAll: false,
-      list: [],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237
-        },
-        {
-          name: "Eclair",
-          calories: 262
-        },
-        {
-          name: "Cupcake",
-          calories: 305
-        },
-        {
-          name: "Gingerbread",
-          calories: 356
-        },
-        {
-          name: "Jelly bean",
-          calories: 375
-        },
-        {
-          name: "Lollipop",
-          calories: 392
-        },
-        {
-          name: "Honeycomb",
-          calories: 408
-        },
-        {
-          name: "Donut",
-          calories: 452
-        },
-        {
-          name: "KitKat",
-          calories: 518
-        }
-      ],
-      headers: [
-        "Người nộp đơn",
-        "Người duyệt",
-        "Ngày lập",
-        "Ngày làm việc",
-        "Ca làm việc",
-        "Trạng thái"
-      ]
+      list: []
     };
   },
   methods: {
@@ -119,23 +84,16 @@ export default {
       this.isCheckedAll = !this.isCheckedAll;
       this.list = [];
       if (this.isCheckedAll) {
-        for (let item of this.desserts) {
+        for (let item of this.items) {
           this.list.push(item.name);
         }
       }
     },
     updateCheckedAll() {
-      this.isCheckedAll =
-        this.desserts.length === this.list.length ? true : false;
+      this.isCheckedAll = this.items.length === this.list.length ? true : false;
     }
   }
 };
 </script>
 
-<style scoped>
-.ms-grid {
-  width: auto;
-  height: 100%;
-  background: green;
-}
-</style>
+<style scoped></style>

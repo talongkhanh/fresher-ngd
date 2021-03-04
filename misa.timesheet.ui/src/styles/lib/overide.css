@@ -1,0 +1,112 @@
+#vs2__combobox {
+    border: 1px solid var(--input-normal-border-color);
+    height: 36px;
+    background-color: #fff;
+}
+
+#vs2__combobox:focus-within {
+    border-color: var(--primary);
+}
+
+#vs2__combobox:hover {
+    border-color: var(--primary);
+}
+
+#vs2__combobox button {
+    width: 16px;
+    height: 16px;
+}
+
+#vs2__combobox button svg {
+    fill: transparent;
+    background: url("https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg") no-repeat -30px -50px;
+    width: 12px;
+    height: 12px;
+    width: 16px;
+    height: 16px;
+    transform: scale(0.7);
+}
+
+#vs2__combobox svg {
+    fill: transparent;
+    background: url("https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg") no-repeat -199px -3px;
+    width: 12px;
+    height: 12px;
+    width: 16px;
+    height: 16px;
+    transform: scale(1);
+}
+
+#vs2__listbox {
+    padding-left: 1px !important;
+}
+
+#vs2__listbox li:hover {
+    background: var(--dropdown-item-hover);
+    color: var(--black);
+}
+
+.vs__dropdown-option {
+    height: 36px;
+    line-height: 36px;
+    display: block;
+    padding: 3px;
+    color: var(--black);
+    white-space: nowrap;
+}
+
+
+/*  */
+
+#vs1__combobox {
+    border: 1px solid var(--input-normal-border-color);
+    height: 36px;
+    background-color: #fff;
+}
+
+#vs1__combobox:focus-within {
+    border-color: var(--primary);
+}
+
+#vs1__combobox:hover {
+    border-color: var(--primary);
+}
+
+#vs1__combobox button {
+    width: 16px;
+    height: 16px;
+}
+
+#vs1__combobox button svg {
+    fill: transparent;
+    background: url("https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg") no-repeat -30px -50px;
+    width: 12px;
+    height: 12px;
+    width: 16px;
+    height: 16px;
+    transform: scale(0.7);
+}
+
+#vs1__combobox svg {
+    fill: transparent;
+    background: url("https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg") no-repeat -199px -3px;
+    width: 12px;
+    height: 12px;
+    width: 16px;
+    height: 16px;
+    transform: scale(1);
+}
+
+#vs1__listbox {
+    padding-left: 1px !important;
+}
+
+#vs1__listbox li:hover {
+    background: var(--dropdown-item-hover);
+    color: var(--black);
+}
+
+.vs__dropdown-option--highlight {
+    background: var(--dropdown-item-hover);
+    color: var(--primary);
+}

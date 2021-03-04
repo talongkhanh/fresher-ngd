@@ -14,7 +14,7 @@
             :key="index"
             :item="item"
             :url="url"
-            @closeDropdown="callToClose"
+            @hideDropdown="callToClose"
             class="d-flex align-center"
           >
             <template slot="dropdownItemContent">

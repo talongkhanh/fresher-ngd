@@ -1,6 +1,6 @@
 .ms-navbar {
     background: var(--white) !important;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 2;

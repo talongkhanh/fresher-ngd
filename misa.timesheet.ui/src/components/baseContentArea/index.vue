@@ -17,7 +17,9 @@
             hintText="Tìm kiếm"
             class="m-r-8"
           ></ms-input>
+          <div style="width: 300px"></div>
           <ms-button
+            @click.native="showDialog"
             class="m-r-8"
             icon="icon-add"
             type="primary"
@@ -46,13 +48,24 @@ export default {
     isShowFilter: {
       type: [Boolean, String],
       default: false
+    },
+    isShowDialog: {
+      type: [Boolean, String],
+      default: false
     }
   },
   methods: {
     toggleShowFilter() {
-      console.log(1);
       this.$emit("toggleShowFilter");
+    },
+    showDialog() {
+      this.$emit("showDialog");
     }
+  },
+  data() {
+    return {
+      options: ["a", "b", "c"]
+    };
   }
 };
 </script>
@@ -66,7 +79,7 @@ export default {
   height: 52px;
   padding-bottom: 16px;
 }
-.content-header-title {
+h2 {
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.384px !important;

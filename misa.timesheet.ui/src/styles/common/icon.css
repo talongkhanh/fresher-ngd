@@ -14,7 +14,7 @@
 }
 
 .icon-search {
-    margin-right: 8px;
+    margin-right: 8px !important;
     background-color: #666!important;
     -webkit-mask-position: -120px 0;
     mask-position: -120px 0;
@@ -50,4 +50,11 @@
     background-color: #666!important;
     -webkit-mask-position: -192px 0;
     mask-position: -192px 0;
+}
+
+.icon-close {
+    background-color: #666!important;
+    -webkit-mask-position: -24px -48px;
+    mask-position: -24px -48px;
+    cursor: pointer;
 }

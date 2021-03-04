@@ -1,5 +1,5 @@
 <template>
-  <li class="ms-dropdown-item" @click="handleClick">
+  <li class="ms-dropdown-item" @click="handleDropdownItemClick">
     <slot name="dropdownItemContent" />
   </li>
 </template>
@@ -8,8 +8,8 @@
 export default {
   name: "MsDropdownItem",
   methods: {
-    handleClick() {
-      this.$emit("closeDropdown");
+    handleDropdownItemClick() {
+      this.$emit("hideDropdown");
     }
   },
   props: {

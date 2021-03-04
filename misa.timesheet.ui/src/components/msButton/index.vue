@@ -1,7 +1,7 @@
 <template>
   <button
     class="ms-button"
-    :class="[type, { noIcon: !icon, noText: !buttonText }]"
+    :class="[type, { noIcon: !icon, noText: !buttonText, buttonLong: long }]"
   >
     <i
       v-if="icon"
@@ -20,7 +20,11 @@ export default {
   props: {
     icon: String,
     buttonText: String,
-    type: String
+    type: String,
+    long: {
+      type: [Boolean, String],
+      default: false
+    }
   }
 };
 </script>
@@ -111,5 +115,9 @@ button icon
 -------------*/
 .ms-button i.iconAndText {
   margin-right: 4px !important;
+}
+
+.ms-button.buttonLong {
+  min-width: 100px !important;
 }
 </style>

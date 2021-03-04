@@ -1,5 +1,8 @@
 import Vue from 'vue'
 
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+
 import mainLayout from '@/layouts/mainLayout';
 Vue.component(mainLayout.name, mainLayout);
 
@@ -14,6 +17,9 @@ Vue.component(msDropdown.name, msDropdown);
 
 import msDropdownItem from '@/components/msDropdownItem';
 Vue.component(msDropdownItem.name, msDropdownItem);
+
+import msDropdownMenu from '@/components/msDropdownMenu';
+Vue.component(msDropdownMenu.name, msDropdownMenu);
 
 import msNavbarItem from '@/components/msNavbarItem';
 Vue.component(msNavbarItem.name, msNavbarItem);
@@ -38,3 +44,9 @@ Vue.component(msFilter.name, msFilter);
 
 import msCheckbox from '@/components/msCheckbox';
 Vue.component(msCheckbox.name, msCheckbox);
+
+import msSelect from '@/components/msSelect';
+Vue.component(msSelect.name, msSelect);
+
+import msDialog from '@/components/msDialog';
+Vue.component(msDialog.name, msDialog);

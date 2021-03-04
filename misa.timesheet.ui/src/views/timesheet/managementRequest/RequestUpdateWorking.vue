@@ -1,30 +1,20 @@
 <template>
   <div style="height:100%">
     <base-list-view>
-      <!-- <ms-input></ms-input>
-    <ms-input icon="icon-search"></ms-input>
-    <ms-input icon="icon-search" hintText="Tìm kiếm"></ms-input>
-    <ms-input
-      iconRight="icon-right"
-      icon="icon-search"
-      hintText="Tìm kiếm"
-    ></ms-input>
-    <ms-input
-      iconRight="icon-right"
-      icon="icon-clock"
-      disabled="true"
-      disable="disable"
-    ></ms-input>
-    <div class="d-flex">
-      <ms-button type="secondary" buttonText="Hủy"></ms-button>
-      <ms-button type="primary" buttonText="Lưu"></ms-button>
-      <ms-button icon="icon-filter"></ms-button>
-      <ms-button icon="icon-add" type="primary" buttonText="Thêm"></ms-button>
-    </div> -->
+      <ms-dialog
+        v-if="isShowDialog"
+        headerPrimaryText="Thêm đơn"
+        headerSecondaryText=" - Cập nhật chấm công"
+        @closeDialog="isShowDialog = !isShowDialog"
+      >
+      </ms-dialog>
+      <!--  -->
       <base-content-area
+        :isShowDialog="isShowDialog"
         :isShowFilter="isShowFilter"
         :contentHeaderTitle="contentHeaderTitle"
         @toggleShowFilter="isShowFilter = !isShowFilter"
+        @showDialog="isShowDialog = !isShowDialog"
       >
         <ms-dropdown
           id="choose-status"
@@ -65,8 +55,16 @@
           </div>
         </ms-dropdown>
         <div style="height: 100%;" slot="contentMain" class="d-flex">
-          <ms-grid class="flex-grow-1"></ms-grid>
-          <ms-filter v-show="isShowFilter"></ms-filter>
+          <ms-grid
+            :headers="headers"
+            :items="items"
+            class="flex-grow-1"
+          ></ms-grid>
+          <ms-filter
+            @closeFilter="isShowFilter = false"
+            :items="headers"
+            v-show="isShowFilter"
+          ></ms-filter>
         </div>
       </base-content-area>
     </base-list-view>
@@ -85,7 +83,58 @@ export default {
         { name: "Đã duyệt", id: "2", selected: false },
         { name: "Từ chối", id: "3", selected: false }
       ],
-      isShowFilter: false
+      items: [
+        {
+          name: "Frozen Yogurt",
+          calories: 159
+        },
+        {
+          name: "Ice cream sandwich",
+          calories: 237
+        },
+        {
+          name: "Eclair",
+          calories: 262
+        },
+        {
+          name: "Cupcake",
+          calories: 305
+        },
+        {
+          name: "Gingerbread",
+          calories: 356
+        },
+        {
+          name: "Jelly bean",
+          calories: 375
+        },
+        {
+          name: "Lollipop",
+          calories: 392
+        },
+        {
+          name: "Honeycomb",
+          calories: 408
+        },
+        {
+          name: "Donut",
+          calories: 452
+        },
+        {
+          name: "KitKat",
+          calories: 518
+        }
+      ],
+      headers: [
+        "Người nộp đơn",
+        "Người duyệt",
+        "Ngày lập",
+        "Ngày làm việc",
+        "Ca làm việc",
+        "Trạng thái"
+      ],
+      isShowFilter: false,
+      isShowDialog: false
     };
   },
   methods: {

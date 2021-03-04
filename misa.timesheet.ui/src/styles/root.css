@@ -2,6 +2,7 @@
     Import Component Css
 ----------------------*/
 
+@import 'vue-select/dist/vue-select.css';
 @import './components/msNavbar.css';
 @import './components/msNavbarItem.css';
 @import './components/msDropdown.css';
@@ -11,6 +12,7 @@
 @import './components/msCheckbox.css';
 @import './layouts/mainLayout.css';
 @import './common/icon.css';
+@import './lib/overide.css';
 
 /*----------------------
     Declare Varialbe
@@ -20,7 +22,7 @@
     --primary: #ec5504;
     --primary-bg: #ffede2;
     --white: #fff;
-    --black: #050505;
+    --black: #212121;
     --hint-text-color: #ddd;
     --navbar-header-width: 200px;
     --text-box-height: 36px;
@@ -82,6 +84,14 @@
     margin-right: 8px !important;
 }
 
+.m-l-8 {
+    margin-left: 8px !important;
+}
+
+.m-b-8 {
+    margin-bottom: 8px !important;
+}
+
 .m-l-50 {
     margin-left: 50px !important;
 }
@@ -92,5 +102,6 @@
 -------------------------------*/
 
 html {
-    overflow-y: auto
+    overflow-y: auto;
+    color: var(--black);
 }
