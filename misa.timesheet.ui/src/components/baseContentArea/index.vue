@@ -13,7 +13,6 @@
         </div>
         <div class="d-flex align-center">
           <ms-input
-            iconRight="icon-right"
             icon="icon-search"
             hintText="Tìm kiếm"
             class="m-r-8"
@@ -24,7 +23,10 @@
             type="primary"
             buttonText="Thêm"
           ></ms-button>
-          <ms-button icon="icon-filter"></ms-button>
+          <ms-button
+            icon="icon-filter"
+            @click.native="toggleShowFilter()"
+          ></ms-button>
         </div>
       </div>
     </div>
@@ -40,6 +42,16 @@ export default {
   props: {
     contentHeaderTitle: {
       type: [String]
+    },
+    isShowFilter: {
+      type: [Boolean, String],
+      default: false
+    }
+  },
+  methods: {
+    toggleShowFilter() {
+      console.log(1);
+      this.$emit("toggleShowFilter");
     }
   }
 };
@@ -58,5 +70,9 @@ export default {
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.384px !important;
+}
+
+.content-main {
+  height: calc(100% - 52px);
 }
 </style>

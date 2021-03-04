@@ -7,6 +7,8 @@
 @import './components/msDropdown.css';
 @import './components/msDropdownItem.css';
 @import './components/msMenu.css';
+@import './components/msGrid.css';
+@import './components/msCheckbox.css';
 @import './layouts/mainLayout.css';
 @import './common/icon.css';
 

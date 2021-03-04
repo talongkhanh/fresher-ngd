@@ -29,3 +29,12 @@ Vue.component(baseListView.name, baseListView);
 
 import baseContentArea from '@/components/baseContentArea';
 Vue.component(baseContentArea.name, baseContentArea);
+
+import msGrid from '@/components/msGrid';
+Vue.component(msGrid.name, msGrid);
+
+import msFilter from '@/components/msFilter';
+Vue.component(msFilter.name, msFilter);
+
+import msCheckbox from '@/components/msCheckbox';
+Vue.component(msCheckbox.name, msCheckbox);

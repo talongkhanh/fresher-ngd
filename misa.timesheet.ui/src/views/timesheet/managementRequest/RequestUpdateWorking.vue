@@ -21,7 +21,11 @@
       <ms-button icon="icon-filter"></ms-button>
       <ms-button icon="icon-add" type="primary" buttonText="Thêm"></ms-button>
     </div> -->
-      <base-content-area :contentHeaderTitle="contentHeaderTitle">
+      <base-content-area
+        :isShowFilter="isShowFilter"
+        :contentHeaderTitle="contentHeaderTitle"
+        @toggleShowFilter="isShowFilter = !isShowFilter"
+      >
         <ms-dropdown
           id="choose-status"
           :data="statuses"
@@ -60,9 +64,9 @@
             </ms-dropdown-item>
           </div>
         </ms-dropdown>
-        <div slot="contentMain">
-          <ms-grid></ms-grid>
-          <ms-filter></ms-filter>
+        <div style="height: 100%;" slot="contentMain" class="d-flex">
+          <ms-grid class="flex-grow-1"></ms-grid>
+          <ms-filter v-show="isShowFilter"></ms-filter>
         </div>
       </base-content-area>
     </base-list-view>
@@ -80,7 +84,8 @@ export default {
         { name: "Chờ duyệt", id: "1", selected: false },
         { name: "Đã duyệt", id: "2", selected: false },
         { name: "Từ chối", id: "3", selected: false }
-      ]
+      ],
+      isShowFilter: false
     };
   },
   methods: {

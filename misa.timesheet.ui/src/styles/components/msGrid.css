@@ -1,0 +1,14 @@
+.ms-grid-row:hover {
+    background-color: var(--primary-bg) !important;
+    cursor: pointer !important;
+}
+
+.ms-grid-row.selected {
+    background-color: #fff4e5;
+}
+
+.ms-grid-header {
+    color: var(--black) !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+}
