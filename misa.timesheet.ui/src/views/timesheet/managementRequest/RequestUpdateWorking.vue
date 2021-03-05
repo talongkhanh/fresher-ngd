@@ -190,7 +190,7 @@
                 <div
                   class="ms-dropdown-link d-flex align-center"
                   :class="{ active: item.selected }"
-                  @click="test(item)"
+                  @click="selectItem(item)"
                 >
                   {{ item.name }}
                 </div>
@@ -290,7 +290,7 @@ export default {
     };
   },
   methods: {
-    test(item) {
+    selectItem(item) {
       this.statuses.forEach(status => {
         status.selected = false;
       });

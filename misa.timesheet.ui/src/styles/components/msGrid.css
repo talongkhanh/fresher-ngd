@@ -3,7 +3,7 @@
     height: 100%;
 }
 
-.grid-footer {
+.ms-grid-footer {
     height: 61px;
     padding: 10px 0;
     background: var(--white);

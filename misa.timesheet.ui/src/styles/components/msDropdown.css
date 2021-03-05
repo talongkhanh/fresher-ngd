@@ -8,11 +8,34 @@
     color: var(--white);
 }
 
+
+/*-----------------------
+Custom drop down position
+-----------------------*/
+
 #choose-status {
     outline: none;
 }
 
 #choose-status .ms-dropdown-menu {
     top: 106px;
+    z-index: 2;
+}
+
+#choose-limit-page {
+    border: 1px solid;
+    border-color: var(--input-disable-border-color) !important;
+    background-color: #fff !important;
+    border-radius: 4px;
+    min-width: 80px;
+    height: 36px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#choose-limit-page .ms-dropdown-menu {
+    top: 470px;
     z-index: 2;
 }
