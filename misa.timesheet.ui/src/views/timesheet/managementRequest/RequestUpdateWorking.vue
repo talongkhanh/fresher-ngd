@@ -7,6 +7,150 @@
         headerSecondaryText=" - Cập nhật chấm công"
         @closeDialog="isShowDialog = !isShowDialog"
       >
+        <v-row slot="dialogContent" no-gutters>
+          <v-col class="px-6 py-4 d-flex flex-column">
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">
+                Người đề nghị <span class="required-field">*</span>
+              </div>
+              <div class="input-wrap">
+                <dx-select-box
+                  placeholder=""
+                  :search-enabled="true"
+                  :data-source="products"
+                  display-expr="name"
+                  value-expr="id"
+                />
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">Đơn vị công tác</div>
+              <div class="input-wrap">
+                <ms-input disabled="disabled"></ms-input>
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">
+                Ngày đề nghị <span class="required-field">*</span>
+              </div>
+              <div class="input-wrap">
+                <ms-input></ms-input>
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">
+                Ngày làm việc <span class="required-field">*</span>
+              </div>
+              <div class="input-wrap">
+                <ms-input></ms-input>
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">
+                Ca làm việc <span class="required-field">*</span>
+              </div>
+              <div class="input-wrap">
+                <dx-select-box
+                  placeholder=""
+                  :search-enabled="true"
+                  :data-source="products"
+                  display-expr="name"
+                  value-expr="is"
+                />
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">Giờ vào đầu ca</div>
+              <div class="input-wrap">
+                <ms-input
+                  disabled="disabled"
+                  iconRight="icon-right"
+                  icon="icon-clock"
+                ></ms-input>
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">Giờ ra giữa ca</div>
+              <div class="input-wrap">
+                <ms-input
+                  disabled="disabled"
+                  iconRight="icon-right"
+                  icon="icon-clock"
+                ></ms-input>
+              </div>
+            </div>
+          </v-col>
+          <v-col class="px-6 py-4">
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">Giờ vào giữa ca</div>
+              <div class="input-wrap">
+                <ms-input
+                  disabled="disabled"
+                  iconRight="icon-right"
+                  icon="icon-clock"
+                ></ms-input>
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">Giờ ra cuối ca</div>
+              <div class="input-wrap">
+                <ms-input
+                  disabled="disabled"
+                  iconRight="icon-right"
+                  icon="icon-clock"
+                ></ms-input>
+              </div>
+            </div>
+            <div class="mb-4 d-flex">
+              <div class="flex-grow-1 mr-8">
+                Lý do cập nhật <span class="required-field">*</span>
+              </div>
+              <div class="input-wrap">
+                <ms-text-area></ms-text-area>
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">
+                Người duyệt <span class="required-field">*</span>
+              </div>
+              <div class="input-wrap">
+                <dx-select-box
+                  placeholder=""
+                  :search-enabled="true"
+                  :data-source="products"
+                  display-expr="name"
+                  value-expr="id"
+                />
+              </div>
+            </div>
+            <div class="mb-4 d-flex">
+              <div class="flex-grow-1 mr-8">
+                Ghi chú
+              </div>
+              <div class="input-wrap">
+                <ms-text-area></ms-text-area>
+              </div>
+            </div>
+            <div class="mb-4 d-flex align-center justify-space-between">
+              <div class="flex-grow-1 mr-8">
+                Trạng thái <span class="required-field">*</span>
+              </div>
+              <div class="input-wrap">
+                <dx-select-box
+                  placeholder=""
+                  :search-enabled="true"
+                  :data-source="products"
+                  display-expr="name"
+                  value-expr="id"
+                />
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+        <div class="d-flex" slot="dialogFooter">
+          <ms-button class="mr-2" type="secondary" buttonText="Hủy"></ms-button>
+          <ms-button type="primary" buttonText="Lưu"></ms-button>
+        </div>
       </ms-dialog>
       <!--  -->
       <base-content-area
@@ -63,7 +207,7 @@
           <ms-filter
             @closeFilter="isShowFilter = false"
             :items="headers"
-            v-show="isShowFilter"
+            v-if="isShowFilter"
           ></ms-filter>
         </div>
       </base-content-area>
@@ -134,7 +278,15 @@ export default {
         "Trạng thái"
       ],
       isShowFilter: false,
-      isShowDialog: false
+      isShowDialog: false,
+
+      products: [
+        { name: "lua chon 1", id: 1 },
+        { name: "lua chon 2", id: 2 },
+        { name: "lua chon 3", id: 3 },
+        { name: "lua chon 4", id: 4 },
+        { name: "lua chon 5", id: 5 }
+      ]
     };
   },
   methods: {
@@ -148,4 +300,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.input-wrap {
+  width: 241px;
+}
+
+.required-field {
+  color: red;
+}
+</style>

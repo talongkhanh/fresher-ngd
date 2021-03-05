@@ -8,7 +8,18 @@
       <template v-slot:default>
         <thead>
           <tr>
-            <th class="d-flex align-center justify-center">
+            <th style="width: 24px; padding-right: 0: position: relative;">
+              <button
+                @click="isShowAdjustColumn = !isShowAdjustColumn"
+                class="ms-icon icon-adjust-column"
+              ></button>
+              <ms-adjust-column
+                :items="headers"
+                v-if="isShowAdjustColumn"
+                @closeAdjustColumn="isShowAdjustColumn = !isShowAdjustColumn"
+              ></ms-adjust-column>
+            </th>
+            <th style="width: 24px; z-index: 0;">
               <ms-checkbox>
                 <input
                   v-model="isCheckedAll"
@@ -34,7 +45,8 @@
             :key="index"
             :class="{ selected: list.indexOf(item.name) != -1 }"
           >
-            <td class="d-flex align-center justify-center">
+            <td></td>
+            <td>
               <ms-checkbox>
                 <input
                   @change="updateCheckedAll"
@@ -76,6 +88,7 @@ export default {
   data() {
     return {
       isCheckedAll: false,
+      isShowAdjustColumn: false,
       list: []
     };
   },

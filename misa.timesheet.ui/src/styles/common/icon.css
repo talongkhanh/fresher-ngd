@@ -11,11 +11,11 @@
     display: inline-block;
     mask-image: url('../../assets/img/Icon.569cfdf.svg');
     mask-repeat: no-repeat;
+    background-color: #666;
 }
 
 .icon-search {
     margin-right: 8px !important;
-    background-color: #666!important;
     -webkit-mask-position: -120px 0;
     mask-position: -120px 0;
 }
@@ -35,26 +35,29 @@
 }
 
 .icon-clock {
-    background-color: #666!important;
     -webkit-mask-position: 0 -48px;
     mask-position: 0 -48px;
+    padding-right: 7px;
 }
 
 .icon-filter {
-    background-color: #666!important;
     -webkit-mask-position: -240px -48px;
     mask-position: -240px -48px;
 }
 
 .icon-chevron-down-black {
-    background-color: #666!important;
     -webkit-mask-position: -192px 0;
     mask-position: -192px 0;
 }
 
 .icon-close {
-    background-color: #666!important;
     -webkit-mask-position: -24px -48px;
     mask-position: -24px -48px;
+    cursor: pointer;
+}
+
+.icon-adjust-column {
+    -webkit-mask-position: -242px -22px;
+    mask-position: -242px -22px;
     cursor: pointer;
 }

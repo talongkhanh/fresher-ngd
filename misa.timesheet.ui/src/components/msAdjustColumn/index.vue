@@ -1,11 +1,11 @@
 <template>
-  <div class="ms-filter">
-    <div class="ms-filter-header">
+  <div class="ms-adjust-column">
+    <div class="ms-adjust-column-header">
       <div class="d-flex justify-space-between mb-3">
-        <h2 class="ms-filter-header-text">Bộ lọc</h2>
-        <i @click="closeFilter" class="ms-icon icon-close"></i>
+        <h2 class="ms-adjust-column-header-text">Tùy chỉnh cột</h2>
+        <i @click="closeAdjustColumn()" class="ms-icon icon-close"></i>
       </div>
-      <div class="ms-filter-header-search">
+      <div class="ms-adjust-column-header-search">
         <ms-input
           ref="msInput"
           icon="icon-search"
@@ -13,9 +13,9 @@
         ></ms-input>
       </div>
     </div>
-    <div class="ms-filter-option">
+    <div class="ms-adjust-column-option">
       <div
-        class="ms-filter-option-item d-flex align-center m-b-8"
+        class="ms-adjust-column-option-item d-flex align-center m-b-8"
         v-for="(item, index) in items"
         :key="index"
       >
@@ -29,22 +29,22 @@
       </div>
     </div>
     <div
-      class="ms-filter-footer mt-auto d-flex align-center justify-space-between"
+      class="ms-adjust-column-footer mt-auto d-flex align-center justify-center"
     >
       <ms-button
-        @click.native="closeFilter"
+        class="mr-4"
         long="true"
         type="secondary"
-        buttonText="Bỏ lọc"
+        buttonText="Mặc định"
       ></ms-button>
-      <ms-button long="true" type="primary" buttonText="Áp dụng"></ms-button>
+      <ms-button type="primary" buttonText="Lưu"></ms-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MsFilter",
+  name: "MsAdjustColumn",
   props: {
     items: {
       type: Array,
@@ -52,8 +52,8 @@ export default {
     }
   },
   methods: {
-    closeFilter() {
-      this.$emit("closeFilter");
+    closeAdjustColumn() {
+      this.$emit("closeAdjustColumn");
     }
   },
   mounted() {
@@ -63,44 +63,62 @@ export default {
 </script>
 
 <style scoped>
-.ms-filter {
+.ms-adjust-column {
+  z-index: 3 !important;
+  left: 0;
+  top: 100%;
+  position: absolute;
   width: 260px;
-  height: 100%;
+  height: max-content;
   background: var(--white);
-  margin-left: 16px;
   border-radius: 10px;
   border: 1px solid var(--input-normal-border-color);
   padding-bottom: 16px;
   display: flex;
   flex-direction: column;
-  z-index: 2 !important;
-  background: var(--white);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-.ms-filter-header {
+.ms-adjust-column::after {
+  content: "";
+  display: block;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+
+  border-bottom: 12px solid var(--white);
+  top: -12px;
+  left: 14px;
+  position: absolute;
+
+  z-index: 4 !important;
+}
+
+.ms-adjust-column-header {
   padding: 0 16px;
   padding-top: 14px;
   margin-bottom: 12px;
 }
 
-.ms-filter-header-search {
+.ms-adjust-column-header-search {
   margin-bottom: 7px;
 }
 
-.ms-filter-option {
+.ms-adjust-column-option {
   height: auto;
   padding: 0 8px;
   padding-bottom: 12px;
+  font-weight: normal;
+  color: var(--black);
 }
 
-.ms-filter-option-item {
+.ms-adjust-column-option-item {
   width: 100%;
   padding: 0 8px;
   padding-top: 8px;
   height: 36px;
 }
 
-.ms-filter-footer {
+.ms-adjust-column-footer {
   bottom: 16px;
   padding: 0 16px;
 }

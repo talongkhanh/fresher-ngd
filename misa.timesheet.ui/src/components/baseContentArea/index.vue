@@ -17,7 +17,6 @@
             hintText="Tìm kiếm"
             class="m-r-8"
           ></ms-input>
-          <div style="width: 300px"></div>
           <ms-button
             @click.native="showDialog"
             class="m-r-8"

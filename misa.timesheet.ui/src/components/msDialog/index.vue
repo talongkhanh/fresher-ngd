@@ -10,10 +10,10 @@
         </div>
         <i @click="closeDialog" class="ms-icon icon-close"></i>
       </div>
-      <div class="ms-dialog-content">
+      <div class="ms-dialog-content flex-grow-1">
         <slot name="dialogContent" />
       </div>
-      <div class="ms-dialog-footer mt-auto">
+      <div class="d-flex align-center justify-end ms-dialog-footer mt-auto">
         <slot name="dialogFooter" />
       </div>
     </div>
@@ -72,7 +72,6 @@ export default {
   padding: 0 24px;
   padding-top: 24px;
   height: 53px;
-  background: #eee;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
@@ -92,5 +91,14 @@ export default {
   letter-spacing: 0.384px;
   font-size: 16px;
   color: rgb(33, 33, 33);
+}
+
+/*-------------
+Dialog footer
+-------------*/
+
+.ms-dialog-footer {
+  padding: 16px 24px;
+  height: 68px;
 }
 </style>

@@ -110,3 +110,10 @@
     background: var(--dropdown-item-hover);
     color: var(--primary);
 }
+
+.dx-texteditor-input {
+    font-size: 'Roboto' !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black) !important;
+}
