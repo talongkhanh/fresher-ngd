@@ -15,7 +15,7 @@
     </div>
     <div class="ms-adjust-column-option">
       <div
-        class="ms-adjust-column-option-item d-flex align-center m-b-8"
+        class="ms-adjust-column-option-item d-flex align-center"
         v-for="(item, index) in items"
         :key="index"
       >
@@ -26,6 +26,7 @@
             {{ item }}
           </span>
         </ms-checkbox>
+        <i class="ms-icon icon-drag"></i>
       </div>
     </div>
     <div
@@ -113,9 +114,13 @@ export default {
 
 .ms-adjust-column-option-item {
   width: 100%;
-  padding: 0 8px;
-  padding-top: 8px;
+  padding: 10px 8px;
   height: 36px;
+}
+
+.ms-adjust-column-option-item:hover {
+  background: #ebf0ff;
+  border-radius: 4px;
 }
 
 .ms-adjust-column-footer {

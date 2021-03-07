@@ -1,5 +1,8 @@
 import Vue from 'vue'
 
+import DatePicker from 'vue2-datepicker';
+Vue.component('date-picker', DatePicker)
+
 import { DxSelectBox } from "devextreme-vue/select-box";
 Vue.component('dx-select-box', DxSelectBox)
 

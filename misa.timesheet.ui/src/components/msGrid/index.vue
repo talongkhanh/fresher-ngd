@@ -22,8 +22,8 @@
                 @closeAdjustColumn="isShowAdjustColumn = !isShowAdjustColumn"
               ></ms-adjust-column>
             </th>
-            <th style="width: 24px; z-index: 0;">
-              <ms-checkbox>
+            <th style="width: 24px; z-index: 1;">
+              <ms-checkbox v-if="items.length > 0">
                 <input
                   v-model="isCheckedAll"
                   @click="checkedAll"
@@ -39,14 +39,15 @@
             >
               {{ header }}
             </th>
+            <th></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="items.length > 0">
           <tr
             class="ms-grid-row"
             v-for="(item, index) in items"
             :key="index"
-            :class="{ selected: list.indexOf(item.name) != -1 }"
+            :class="{ selected: list.indexOf(item.id) != -1 }"
           >
             <td></td>
             <td>
@@ -54,20 +55,41 @@
                 <input
                   @change="updateCheckedAll"
                   v-model="list"
-                  :value="item.name"
+                  :value="item.id"
                   type="checkbox"
                 />
                 <span class="checkmark"></span>
               </ms-checkbox>
             </td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.calories }}</td>
-            <td>{{ item.calories }}</td>
+            <td>{{ item.applicants }}</td>
+            <td>{{ item.approveder }}</td>
+            <td>{{ item.createdDate }}</td>
 
-            <td>{{ item.calories }}</td>
-            <td>{{ item.calories }}</td>
-            <td>{{ item.calories }}</td>
+            <td>{{ item.workingDate }}</td>
+            <td>{{ item.shift }}</td>
+            <td>{{ item.status }}</td>
+            <td style="width: 128px;">
+              <ms-button
+                type="circle"
+                class="mr-4"
+                icon="icon-edit"
+              ></ms-button>
+              <ms-button
+                @click.native="deleteRecord(item)"
+                type="circle"
+                icon="icon-delete"
+              ></ms-button>
+            </td>
           </tr>
+        </tbody>
+        <tbody
+          class="d-flex align-center justify-center"
+          v-else
+          style="height: calc(100vh - 249px);"
+        >
+          <div class="ms-grid-no-content">
+            Không có dữ liệu
+          </div>
         </tbody>
       </template>
     </v-simple-table>
@@ -108,11 +130,16 @@
       <div class="ms-grid-show-record mx-6">
         Từ <b>{{ startRecord }}</b> đến <b>{{ endRecord }}</b> bản ghi
       </div>
+      <div class="ms-grid-control-page">
+        <ms-button icon="icon-prev-page" type="paging"> </ms-button>
+        <ms-button icon="icon-next-page" type="paging"> </ms-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import EventBus from "@/EventBus.js";
 export default {
   name: "MsGrid",
   props: {
@@ -168,12 +195,14 @@ export default {
       this.list = [];
       if (this.isCheckedAll) {
         for (let item of this.items) {
-          this.list.push(item.name);
+          this.list.push(item.id);
         }
       }
+      this.$emit("selectionChange", this.list);
     },
     updateCheckedAll() {
       this.isCheckedAll = this.items.length === this.list.length ? true : false;
+      this.$emit("selectionChange", this.list);
     },
     checkClickOn(event) {
       if (!document.getElementById("ms-adjust-column")) return;
@@ -186,10 +215,18 @@ export default {
         paginateItem.selected = false;
       });
       item.selected = true;
+    },
+    deleteRecord(record) {
+      this.$emit("deleteRecord", record);
     }
   },
   created() {
     window.addEventListener("click", this.checkClickOn);
+    EventBus.$on("unSelect", () => {
+      this.isCheckedAll = false;
+      this.list = [];
+      this.$emit("selectionChange", this.list);
+    });
   },
   beforeDestroy() {
     window.removeEventListener("click", this.checkClickOn);

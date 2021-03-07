@@ -117,3 +117,65 @@
     font-weight: 400;
     color: var(--black) !important;
 }
+
+.dx-item.dx-list-item {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.dx-item-content.dx-list-item-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.dx-list-item.dx-state-active {
+    background-color: var(--primary-bg) !important;
+    color: #333 !important;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-state-focused {
+    background-color: var(--primary-bg) !important;
+    color: #333 !important;
+}
+
+.mx-input:hover,
+.mx-input:focus {
+    border-color: var(--primary) !important;
+}
+
+.mx-icon-calendar {
+    width: 24px;
+    height: 24px;
+    mask-image: url('../../assets/img/Icon.569cfdf.svg');
+    mask-repeat: no-repeat;
+    background-color: #666;
+    -webkit-mask-position: -48px -24px;
+    mask-position: -48px -24px;
+}
+
+.mx-datepicker {
+    width: 100% !important;
+}
+
+.mx-icon-calendar svg {
+    display: none;
+}
+
+.mx-table-date .today {
+    color: var(--primary) !important;
+}
+
+.mx-calendar-content .cell.active {
+    background-color: var(--primary) !important;
+}
+
+.mx-calendar-content .cell:hover {
+    background-color: var(--primary-bg) !important;
+}
+
+.mx-btn:hover {
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}

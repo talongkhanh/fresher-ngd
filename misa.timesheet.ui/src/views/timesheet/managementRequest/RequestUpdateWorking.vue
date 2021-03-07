@@ -1,10 +1,36 @@
 <template>
   <div style="height:100%">
     <base-list-view>
+      <!-- delete dialog -->
+
+      <ms-dialog
+        v-if="isShowDeleteDialog"
+        :headerPrimaryText="headerPrimaryText"
+        :headerSecondaryText="headerSecondaryText"
+        width="415px"
+        height="190px"
+        @closeDialog="isShowDeleteDialog = !isShowDeleteDialog"
+      >
+        <v-row
+          class="d-flex align-center ml-6 mt-6"
+          slot="dialogContent"
+          no-gutters
+        >
+          {{ dialogText }}
+        </v-row>
+        <div class="d-flex" slot="dialogFooter">
+          <ms-button class="mr-2" type="secondary" buttonText="Hủy"></ms-button>
+          <ms-button type="danger" buttonText="Xóa"></ms-button>
+        </div>
+      </ms-dialog>
+      <!-- add dialog -->
       <ms-dialog
         v-if="isShowDialog"
-        headerPrimaryText="Thêm đơn"
-        headerSecondaryText=" - Cập nhật chấm công"
+        :headerPrimaryText="headerPrimaryText"
+        :headerSecondaryText="headerSecondaryText"
+        :divider="true"
+        width="892px"
+        height="583px"
         @closeDialog="isShowDialog = !isShowDialog"
       >
         <v-row slot="dialogContent" no-gutters>
@@ -15,11 +41,13 @@
               </div>
               <div class="input-wrap">
                 <dx-select-box
+                  ref="input"
                   placeholder=""
                   :search-enabled="true"
-                  :data-source="products"
+                  :data-source="shifts"
                   display-expr="name"
                   value-expr="id"
+                  @selectionChanged="changeSelect"
                 />
               </div>
             </div>
@@ -34,7 +62,13 @@
                 Ngày đề nghị <span class="required-field">*</span>
               </div>
               <div class="input-wrap">
-                <ms-input></ms-input>
+                <date-picker
+                  :lang="lang"
+                  v-model="newRequest.createdDate"
+                  type="date"
+                  valueType="YYYY-MM-DD"
+                  format="DD/MM/YYYY"
+                ></date-picker>
               </div>
             </div>
             <div class="mb-4 d-flex align-center justify-space-between">
@@ -42,7 +76,13 @@
                 Ngày làm việc <span class="required-field">*</span>
               </div>
               <div class="input-wrap">
-                <ms-input></ms-input>
+                <date-picker
+                  :lang="lang"
+                  v-model="newRequest.workingDate"
+                  type="date"
+                  valueType="YYYY-MM-DD"
+                  format="DD/MM/YYYY"
+                ></date-picker>
               </div>
             </div>
             <div class="mb-4 d-flex align-center justify-space-between">
@@ -53,7 +93,7 @@
                 <dx-select-box
                   placeholder=""
                   :search-enabled="true"
-                  :data-source="products"
+                  :data-source="shifts"
                   display-expr="name"
                   value-expr="is"
                 />
@@ -117,7 +157,7 @@
                 <dx-select-box
                   placeholder=""
                   :search-enabled="true"
-                  :data-source="products"
+                  :data-source="shifts"
                   display-expr="name"
                   value-expr="id"
                 />
@@ -139,7 +179,7 @@
                 <dx-select-box
                   placeholder=""
                   :search-enabled="true"
-                  :data-source="products"
+                  :data-source="statuses"
                   display-expr="name"
                   value-expr="id"
                 />
@@ -157,8 +197,12 @@
         :isShowDialog="isShowDialog"
         :isShowFilter="isShowFilter"
         :contentHeaderTitle="contentHeaderTitle"
+        :isShowMultipleDelete="isShowMultipleDelete"
+        :items="itemsSelected"
         @toggleShowFilter="isShowFilter = !isShowFilter"
-        @showDialog="isShowDialog = !isShowDialog"
+        @showDialog="showDialog"
+        @focusInput="focusInput"
+        @deleteRecords="handleDeleteRecords"
       >
         <ms-dropdown
           id="choose-status"
@@ -203,6 +247,8 @@
             :headers="headers"
             :items="items"
             class="flex-grow-1"
+            @selectionChange="selectionChange"
+            @deleteRecord="handleDeleteRecord"
           ></ms-grid>
           <ms-filter
             @closeFilter="isShowFilter = false"
@@ -216,57 +262,133 @@
 </template>
 
 <script>
+import "vue2-datepicker/locale/vi";
+
 export default {
   name: "RequestUpdateWorking",
   data() {
     return {
+      isShowFilter: false,
+      isShowDialog: false,
+      isShowDeleteDialog: false,
+      isShowMultipleDelete: false,
       contentHeaderTitle: "Đơn cập nhật chấm công",
-      statuses: [
-        { name: "Tất cả", id: "*", selected: true },
-        { name: "Chờ duyệt", id: "1", selected: false },
-        { name: "Đã duyệt", id: "2", selected: false },
-        { name: "Từ chối", id: "3", selected: false }
-      ],
+      headerPrimaryText: "",
+      dialogText: "",
+      headerSecondaryText: "",
+      itemsSelected: [],
+      lang: {
+        language: "vi",
+        monthBeforeYear: true
+      },
       items: [
         {
-          name: "Frozen Yogurt",
-          calories: 159
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "1"
         },
         {
-          name: "Ice cream sandwich",
-          calories: 237
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "2"
         },
         {
-          name: "Eclair",
-          calories: 262
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "3"
         },
         {
-          name: "Cupcake",
-          calories: 305
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "4"
         },
         {
-          name: "Gingerbread",
-          calories: 356
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "5"
         },
         {
-          name: "Jelly bean",
-          calories: 375
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "6"
         },
         {
-          name: "Lollipop",
-          calories: 392
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "7"
         },
         {
-          name: "Honeycomb",
-          calories: 408
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "8"
         },
         {
-          name: "Donut",
-          calories: 452
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "9"
         },
         {
-          name: "KitKat",
-          calories: 518
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "10"
+        },
+        {
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "11"
+        },
+        {
+          applicants: "Tạ Long Khánh",
+          approveder: "Nguyễn Quốc Đạt",
+          createdDate: "2020-01-01",
+          workingDate: "2020-01-01",
+          shift: "Ca sáng",
+          status: "Chờ duyệt",
+          id: "12"
         }
       ],
       headers: [
@@ -277,24 +399,62 @@ export default {
         "Ca làm việc",
         "Trạng thái"
       ],
-      isShowFilter: false,
-      isShowDialog: false,
 
-      products: [
-        { name: "lua chon 1", id: 1 },
-        { name: "lua chon 2", id: 2 },
-        { name: "lua chon 3", id: 3 },
-        { name: "lua chon 4", id: 4 },
-        { name: "lua chon 5", id: 5 }
-      ]
+      statuses: [
+        { name: "Tất cả", id: "*", selected: true },
+        { name: "Chờ duyệt", id: "1", selected: false },
+        { name: "Đã duyệt", id: "2", selected: false },
+        { name: "Từ chối", id: "3", selected: false }
+      ],
+      shifts: [
+        { name: "Ca sáng", id: 1 },
+        { name: "Ca chiều", id: 2 },
+        { name: "Ca tối", id: 3 }
+      ],
+      newRequest: {}
     };
   },
   methods: {
+    showDialog() {
+      this.headerPrimaryText = "Thêm đơn";
+      this.headerSecondaryText = " - Cập nhật chấm công";
+      this.isShowDialog = true;
+    },
     selectItem(item) {
       this.statuses.forEach(status => {
         status.selected = false;
       });
       item.selected = true;
+    },
+    focusInput() {
+      setTimeout(() => {
+        this.$refs.input.$el.firstChild.lastChild.firstChild.firstChild.focus();
+      }, 0);
+    },
+    // comboxbox change
+    changeSelect(e) {
+      console.log(e.selectedItem);
+    },
+    // grid row change
+    selectionChange(list) {
+      this.itemsSelected = list;
+      if (list.length > 0) {
+        this.isShowMultipleDelete = true;
+      } else {
+        this.isShowMultipleDelete = false;
+      }
+    },
+    handleDeleteRecord(record) {
+      this.isShowDeleteDialog = true;
+      this.headerPrimaryText = "Cảnh báo";
+      this.dialogText = "Bạn có chắc chắn muốn xóa Đơn này không?";
+      console.log(record);
+    },
+    handleDeleteRecords() {
+      this.isShowDeleteDialog = true;
+      this.headerPrimaryText = "Xóa đơn";
+      this.dialogText = "Bạn có chắc chắn muốn xóa những Đơn này không?";
+      console.log(this.itemsSelected);
     }
   }
 };

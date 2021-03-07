@@ -2,6 +2,7 @@
   <div class="base-content-area">
     <div class="content-header">
       <div
+        v-if="!isShowMultipleDelete"
         class="d-flex justify-space-between align-center"
         style="height: 100%"
       >
@@ -25,12 +26,32 @@
             buttonText="Thêm"
           ></ms-button>
           <ms-button
+            type="filter"
             icon="icon-filter"
             @click.native="toggleShowFilter()"
           ></ms-button>
         </div>
       </div>
+      <div v-else class="d-flex align-center">
+        <div>
+          Đã chọn <b class="ml-2">{{ items.length }}</b>
+        </div>
+        <div
+          @click="unSelect"
+          style="color: rgb(239, 41, 47); cursor: pointer;"
+          class="mx-4"
+        >
+          Bỏ chọn
+        </div>
+        <ms-button
+          type="multiple-delete"
+          icon="icon-delete"
+          buttonText="Xóa"
+          @click.native="deleteRecords"
+        ></ms-button>
+      </div>
     </div>
+
     <div class="content-main">
       <slot name="contentMain" />
     </div>
@@ -38,6 +59,7 @@
 </template>
 
 <script>
+import EventBus from "@/EventBus.js";
 export default {
   name: "BaseContentArea",
   props: {
@@ -51,6 +73,14 @@ export default {
     isShowDialog: {
       type: [Boolean, String],
       default: false
+    },
+    isShowMultipleDelete: {
+      type: [Boolean, String],
+      default: false
+    },
+    items: {
+      type: [Array],
+      default: () => []
     }
   },
   methods: {
@@ -59,6 +89,13 @@ export default {
     },
     showDialog() {
       this.$emit("showDialog");
+      this.$emit("focusInput");
+    },
+    unSelect() {
+      EventBus.$emit("unSelect");
+    },
+    deleteRecords() {
+      this.$emit("deleteRecords");
     }
   },
   data() {

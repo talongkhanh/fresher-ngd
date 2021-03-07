@@ -15,6 +15,14 @@
     cursor: pointer !important;
 }
 
+.ms-grid-row .ms-button {
+    display: none !important;
+}
+
+.ms-grid-row:hover .ms-button {
+    display: inline-block !important;
+}
+
 .ms-grid-row.selected {
     background-color: #fff4e5;
 }
@@ -29,4 +37,14 @@
 .ms-grid td,
 .ms-grid th {
     border-bottom-color: rgb(224, 224, 224) !important;
+}
+
+
+/* no content grid */
+
+.ms-grid-no-content {
+    width: max-content;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
 }

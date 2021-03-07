@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app">
+  <v-app>
     <main-layout>
       <ms-navbar class="d-flex align-center">
         <div class="ms-navbar--header">

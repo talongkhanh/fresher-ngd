@@ -61,3 +61,31 @@
     mask-position: -242px -22px;
     cursor: pointer;
 }
+
+.icon-edit {
+    -webkit-mask-position: -288px -23px;
+    mask-position: -288px -23px;
+}
+
+.icon-delete {
+    -webkit-mask-position: -168px -23px;
+    mask-position: -168px -23px;
+    background-color: var(--primary);
+}
+
+.icon-prev-page {
+    -webkit-mask-position: -216px 0;
+    mask-position: -216px 0;
+}
+
+.icon-next-page {
+    -webkit-mask-position: -240px 0;
+    mask-position: -240px 0;
+}
+
+.icon-drag {
+    -webkit-mask-position: -312px -72px;
+    mask-position: -312px -72px;
+    background-color: #686c7b!important;
+    cursor: all-scroll;
+}

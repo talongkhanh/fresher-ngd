@@ -113,7 +113,7 @@ h6 {
 -------------------------------*/
 
 html {
-    overflow-y: auto;
+    overflow-y: auto !important;
     color: var(--black);
 }
 
