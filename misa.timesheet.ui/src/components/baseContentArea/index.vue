@@ -19,7 +19,7 @@
             class="m-r-8"
           ></ms-input>
           <ms-button
-            @click.native="showDialog"
+            @click.native="btnAddClick"
             class="m-r-8"
             icon="icon-add"
             type="primary"
@@ -87,8 +87,8 @@ export default {
     toggleShowFilter() {
       this.$emit("toggleShowFilter");
     },
-    showDialog() {
-      this.$emit("showDialog");
+    btnAddClick() {
+      this.$emit("btnAddClick");
       this.$emit("focusInput");
     },
     unSelect() {

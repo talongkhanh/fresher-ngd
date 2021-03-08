@@ -2,6 +2,7 @@
   <div class="ms-input" :class="[iconRight, { disabled: disabled }]">
     <i class="ms-icon" v-if="icon" :class="icon"></i>
     <input
+      v-model="inputVal"
       ref="input"
       :disabled="disabled"
       class="ms-input-item"
@@ -20,6 +21,17 @@ export default {
     iconRight: String,
     disabled: {
       type: [String, Boolean]
+    },
+    value: {}
+  },
+  computed: {
+    inputVal: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      }
     }
   }
 };

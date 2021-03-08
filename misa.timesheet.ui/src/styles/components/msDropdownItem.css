@@ -16,14 +16,12 @@ Dropdown item
 }
 
 .ms-dropdown-item {
-    border-radius: 3px;
-    margin: 4px 0;
-    border: 1px solid transparent;
+    margin: 2px 0;
     padding: 0 !important;
-    height: 36px;
+    height: 38px;
 }
 
-.ms-dropdown-item:hover {
+.ms-dropdown-link:hover {
     background: var(--dropdown-item-hover);
     cursor: pointer;
     color: #212121;
@@ -34,9 +32,10 @@ Dropdown item
 }
 
 .ms-dropdown-link {
+    border-radius: 4px;
     padding-left: 8px;
     padding-right: 32px;
-    height: 100%;
+    height: 35px;
     width: 100%;
     color: #333 !important;
     text-decoration: none;

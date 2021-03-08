@@ -39,3 +39,12 @@ Custom drop down position
     top: 470px;
     z-index: 2;
 }
+
+#dropdown-1 .ms-dropdown-menu,
+#dropdown-2 .ms-dropdown-menu {
+    transform: translateX(-106px);
+}
+
+#dropdown-3 .ms-dropdown-menu {
+    transform: translateX(-96px);
+}

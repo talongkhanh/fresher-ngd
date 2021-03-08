@@ -1,10 +1,21 @@
 <template>
-  <textarea class="ms-text-area" name="" id=""> </textarea>
+  <textarea v-model="inputVal" class="ms-text-area" name="" id=""> </textarea>
 </template>
 
 <script>
 export default {
-  name: "MsTextArea"
+  name: "MsTextArea",
+  props: ["value"],
+  computed: {
+    inputVal: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      }
+    }
+  }
 };
 </script>
 

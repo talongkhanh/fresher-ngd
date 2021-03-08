@@ -61,11 +61,11 @@
                 <span class="checkmark"></span>
               </ms-checkbox>
             </td>
-            <td>{{ item.applicants }}</td>
+            <td>{{ item.applicant }}</td>
             <td>{{ item.approveder }}</td>
-            <td>{{ item.createdDate }}</td>
+            <td>{{ formatDate(item.createdDate) }}</td>
 
-            <td>{{ item.workingDate }}</td>
+            <td>{{ formatDate(item.workingDate) }}</td>
             <td>{{ item.shift }}</td>
             <td>{{ item.status }}</td>
             <td style="width: 128px;">
@@ -73,12 +73,34 @@
                 type="circle"
                 class="mr-4"
                 icon="icon-edit"
+                id="btn-edit"
+                @mouseenter.native="editVisible = !editVisible"
+                @mouseleave.native="editVisible = !editVisible"
+                @click.native="editRecord(item)"
               ></ms-button>
               <ms-button
                 @click.native="deleteRecord(item)"
                 type="circle"
                 icon="icon-delete"
-              ></ms-button>
+                id="btn-delete"
+                @mouseenter.native="deleteVisible = !deleteVisible"
+                @mouseleave.native="deleteVisible = !deleteVisible"
+              >
+              </ms-button>
+              <dx-popover
+                :visible="deleteVisible"
+                target="#btn-delete"
+                position="bottom"
+              >
+                Xóa
+              </dx-popover>
+              <dx-popover
+                :visible="editVisible"
+                target="#btn-edit"
+                position="bottom"
+              >
+                Sửa
+              </dx-popover>
             </td>
           </tr>
         </tbody>
@@ -140,6 +162,8 @@
 
 <script>
 import EventBus from "@/EventBus.js";
+import { formatDate } from "@/untils";
+
 export default {
   name: "MsGrid",
   props: {
@@ -186,7 +210,9 @@ export default {
           limit: 100,
           selected: false
         }
-      ]
+      ],
+      deleteVisible: false,
+      editVisible: false
     };
   },
   methods: {
@@ -218,6 +244,13 @@ export default {
     },
     deleteRecord(record) {
       this.$emit("deleteRecord", record);
+    },
+    editRecord(record) {
+      this.$emit("editRecord", record);
+      this.$emit("focusInput");
+    },
+    formatDate(d) {
+      return formatDate(d);
     }
   },
   created() {

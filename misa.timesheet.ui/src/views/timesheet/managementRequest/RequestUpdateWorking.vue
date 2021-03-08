@@ -19,11 +19,56 @@
           {{ dialogText }}
         </v-row>
         <div class="d-flex" slot="dialogFooter">
-          <ms-button class="mr-2" type="secondary" buttonText="Hủy"></ms-button>
-          <ms-button type="danger" buttonText="Xóa"></ms-button>
+          <ms-button
+            @click.native="isShowDeleteDialog = !isShowDeleteDialog"
+            class="mr-2"
+            type="secondary"
+            buttonText="Hủy"
+          ></ms-button>
+          <ms-button
+            @click.native="handleBtnDeleteClick"
+            type="danger"
+            buttonText="Xóa"
+          ></ms-button>
         </div>
       </ms-dialog>
-      <!-- add dialog -->
+      <!-- change dialog -->
+      <ms-dialog
+        style="z-index: 10 !important;"
+        v-if="isShowChangeDialog"
+        :headerPrimaryText="headerPrimaryText"
+        width="415px"
+        height="190px"
+        @closeDialog="isShowChangeDialog = !isShowChangeDialog"
+        ><v-row
+          class="d-flex align-center ml-6 mt-6"
+          slot="dialogContent"
+          no-gutters
+        >
+          {{ dialogText }}
+        </v-row>
+        <div class="d-flex" slot="dialogFooter">
+          <ms-button
+            @click.native="isShowChangeDialog = !isShowChangeDialog"
+            class="mr-2"
+            type="secondary"
+            buttonText="Hủy"
+          ></ms-button>
+          <ms-button
+            class="mr-2"
+            type="secondary"
+            buttonText="Không lưu"
+            @click.native="handleBtnCancelSaveClick"
+          ></ms-button>
+          <ms-button
+            @click.native="handleBtnSaveClick"
+            type="primary"
+            buttonText="Lưu"
+          ></ms-button>
+        </div>
+      </ms-dialog>
+
+      <!-- add and edit dialog -->
       <ms-dialog
         v-if="isShowDialog"
         :headerPrimaryText="headerPrimaryText"
@@ -31,7 +76,7 @@
         :divider="true"
         width="892px"
         height="583px"
-        @closeDialog="isShowDialog = !isShowDialog"
+        @closeDialog="handleCloseDialog"
       >
         <v-row slot="dialogContent" no-gutters>
           <v-col class="px-6 py-4 d-flex flex-column">
@@ -44,10 +89,10 @@
                   ref="input"
                   placeholder=""
                   :search-enabled="true"
-                  :data-source="shifts"
+                  :data-source="applicants"
                   display-expr="name"
-                  value-expr="id"
-                  @selectionChanged="changeSelect"
+                  value-expr="name"
+                  v-model:value="request.applicant"
                 />
               </div>
             </div>
@@ -64,7 +109,7 @@
               <div class="input-wrap">
                 <date-picker
                   :lang="lang"
-                  v-model="newRequest.createdDate"
+                  v-model="request.createdDate"
                   type="date"
                   valueType="YYYY-MM-DD"
                   format="DD/MM/YYYY"
@@ -78,7 +123,7 @@
               <div class="input-wrap">
                 <date-picker
                   :lang="lang"
-                  v-model="newRequest.workingDate"
+                  v-model="request.workingDate"
                   type="date"
                   valueType="YYYY-MM-DD"
                   format="DD/MM/YYYY"
@@ -95,7 +140,8 @@
                   :search-enabled="true"
                   :data-source="shifts"
                   display-expr="name"
-                  value-expr="is"
+                  value-expr="name"
+                  v-model:value="request.shift"
                 />
               </div>
             </div>
@@ -146,7 +192,7 @@
                 Lý do cập nhật <span class="required-field">*</span>
               </div>
               <div class="input-wrap">
-                <ms-text-area></ms-text-area>
+                <ms-text-area v-model="request.reasonUpdate"> </ms-text-area>
               </div>
             </div>
             <div class="mb-4 d-flex align-center justify-space-between">
@@ -157,9 +203,10 @@
                 <dx-select-box
                   placeholder=""
                   :search-enabled="true"
-                  :data-source="shifts"
+                  :data-source="approveders"
                   display-expr="name"
-                  value-expr="id"
+                  value-expr="name"
+                  v-model:value="request.approveder"
                 />
               </div>
             </div>
@@ -168,7 +215,7 @@
                 Ghi chú
               </div>
               <div class="input-wrap">
-                <ms-text-area></ms-text-area>
+                <ms-text-area v-model="request.note"></ms-text-area>
               </div>
             </div>
             <div class="mb-4 d-flex align-center justify-space-between">
@@ -179,17 +226,27 @@
                 <dx-select-box
                   placeholder=""
                   :search-enabled="true"
-                  :data-source="statuses"
+                  :data-source="statusesFilter"
                   display-expr="name"
-                  value-expr="id"
+                  value-expr="name"
+                  v-model:value="request.status"
                 />
               </div>
             </div>
           </v-col>
         </v-row>
         <div class="d-flex" slot="dialogFooter">
-          <ms-button class="mr-2" type="secondary" buttonText="Hủy"></ms-button>
-          <ms-button type="primary" buttonText="Lưu"></ms-button>
+          <ms-button
+            @click.native="handleCloseDialog"
+            class="mr-2"
+            type="secondary"
+            buttonText="Hủy"
+          ></ms-button>
+          <ms-button
+            @click.native="handleBtnSaveClick"
+            type="primary"
+            buttonText="Lưu"
+          ></ms-button>
         </div>
       </ms-dialog>
       <!--  -->
@@ -200,7 +257,7 @@
         :isShowMultipleDelete="isShowMultipleDelete"
         :items="itemsSelected"
         @toggleShowFilter="isShowFilter = !isShowFilter"
-        @showDialog="showDialog"
+        @btnAddClick="handleBtnAddClick"
         @focusInput="focusInput"
         @deleteRecords="handleDeleteRecords"
       >
@@ -249,6 +306,11 @@
             class="flex-grow-1"
             @selectionChange="selectionChange"
             @deleteRecord="handleDeleteRecord"
+            @editRecord="handleEditRecord"
+            @focusInput="focusInput"
+            :totalRecord="totalRecord"
+            :startRecord="startRecord"
+            :endRecord="endRecord"
           ></ms-grid>
           <ms-filter
             @closeFilter="isShowFilter = false"
@@ -263,7 +325,7 @@
 
 <script>
 import "vue2-datepicker/locale/vi";
-
+import EventBus from "@/EventBus.js";
 export default {
   name: "RequestUpdateWorking",
   data() {
@@ -271,7 +333,9 @@ export default {
       isShowFilter: false,
       isShowDialog: false,
       isShowDeleteDialog: false,
+      isShowChangeDialog: false,
       isShowMultipleDelete: false,
+      isChange: false,
       contentHeaderTitle: "Đơn cập nhật chấm công",
       headerPrimaryText: "",
       dialogText: "",
@@ -283,112 +347,13 @@ export default {
       },
       items: [
         {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
+          applicant: "Tạ Long Khánh",
+          approveder: "Trần Đức Toản",
           createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
+          workingDate: "2020-02-01",
           shift: "Ca sáng",
           status: "Chờ duyệt",
           id: "1"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "2"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "3"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "4"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "5"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "6"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "7"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "8"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "9"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "10"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "11"
-        },
-        {
-          applicants: "Tạ Long Khánh",
-          approveder: "Nguyễn Quốc Đạt",
-          createdDate: "2020-01-01",
-          workingDate: "2020-01-01",
-          shift: "Ca sáng",
-          status: "Chờ duyệt",
-          id: "12"
         }
       ],
       headers: [
@@ -399,9 +364,20 @@ export default {
         "Ca làm việc",
         "Trạng thái"
       ],
-
+      applicants: [
+        { name: "Tạ Long Khánh", id: 1 },
+        { name: "Nguyễn Quốc Đạt", id: 2 },
+        { name: "Lê Hồng Phong", id: 3 },
+        { name: "Lê Việt Hoàng", id: 4 },
+        { name: "Trần Quốc Anh", id: 5 }
+      ],
+      approveders: [
+        { name: "Trần Đức Toản", id: 1 },
+        { name: "Nguyễn Hải Long", id: 2 },
+        { name: "Vũ Thanh Thiên", id: 3 }
+      ],
       statuses: [
-        { name: "Tất cả", id: "*", selected: true },
+        { name: "Tất cả", id: "", selected: true },
         { name: "Chờ duyệt", id: "1", selected: false },
         { name: "Đã duyệt", id: "2", selected: false },
         { name: "Từ chối", id: "3", selected: false }
@@ -411,15 +387,13 @@ export default {
         { name: "Ca chiều", id: 2 },
         { name: "Ca tối", id: 3 }
       ],
-      newRequest: {}
+      request: {},
+      requestOrigin: {},
+      idDelete: null,
+      role: null
     };
   },
   methods: {
-    showDialog() {
-      this.headerPrimaryText = "Thêm đơn";
-      this.headerSecondaryText = " - Cập nhật chấm công";
-      this.isShowDialog = true;
-    },
     selectItem(item) {
       this.statuses.forEach(status => {
         status.selected = false;
@@ -447,14 +421,96 @@ export default {
     handleDeleteRecord(record) {
       this.isShowDeleteDialog = true;
       this.headerPrimaryText = "Cảnh báo";
+      this.headerSecondaryText = "";
       this.dialogText = "Bạn có chắc chắn muốn xóa Đơn này không?";
-      console.log(record);
+      this.role = "singleDelete";
+      this.idDelete = record.id;
     },
     handleDeleteRecords() {
       this.isShowDeleteDialog = true;
       this.headerPrimaryText = "Xóa đơn";
+      this.headerSecondaryText = "";
       this.dialogText = "Bạn có chắc chắn muốn xóa những Đơn này không?";
-      console.log(this.itemsSelected);
+      this.role = "multipleDelete";
+    },
+    handleEditRecord(record) {
+      this.role = "edit";
+      this.headerPrimaryText = "Sửa đơn";
+      this.headerSecondaryText = " - Cập nhật chấm công";
+      this.request = { ...record };
+      this.requestOrigin = { ...record };
+      this.isShowDialog = true;
+    },
+
+    handleBtnAddClick() {
+      this.headerPrimaryText = "Thêm đơn";
+      this.headerSecondaryText = " - Cập nhật chấm công";
+      this.request = {};
+      this.requestOrigin = {};
+      this.role = "add";
+      this.isShowDialog = true;
+    },
+    handleBtnSaveClick() {
+      this.isShowChangeDialog = false;
+      if (this.role == "add") {
+        this.request.id = new Date().getTime();
+        this.items.push(this.request);
+        this.isShowDialog = false;
+        this.request = {};
+      } else if (this.role == "edit") {
+        const index = this.items.findIndex(item => item.id == this.request.id);
+        this.items = [
+          ...this.items.slice(0, index),
+          this.request,
+          ...this.items.slice(index + 1)
+        ];
+        this.isShowDialog = false;
+      }
+    },
+    handleBtnDeleteClick() {
+      if (this.role == "singleDelete") {
+        this.items = this.items.filter(item => item.id != this.idDelete);
+        this.isShowDeleteDialog = false;
+      } else if (this.role == "multipleDelete") {
+        this.itemsSelected.forEach(itemSelected => {
+          this.items = this.items.filter(item => item.id != itemSelected);
+          EventBus.$emit("unSelect");
+          this.isShowDeleteDialog = false;
+        });
+      }
+    },
+    handleCloseDialog() {
+      this.isChange = !(
+        JSON.stringify(this.request) === JSON.stringify(this.requestOrigin)
+      );
+      if (this.isChange) {
+        this.headerPrimaryText = "Thông báo";
+        this.dialogText =
+          "Thông tin đã được thay đổi. Bạn có muốn lưu lại không?";
+        this.isShowChangeDialog = true;
+      } else {
+        this.isShowDialog = false;
+      }
+    },
+    handleBtnCancelSaveClick() {
+      this.isShowChangeDialog = false;
+      this.isShowDialog = false;
+    }
+  },
+  computed: {
+    statusesFilter() {
+      return this.statuses.filter(status => {
+        return status.id != "";
+      });
+    },
+    totalRecord() {
+      return this.items.length;
+    },
+    startRecord() {
+      return 1;
+    },
+    endRecord() {
+      return this.items.length;
     }
   }
 };
