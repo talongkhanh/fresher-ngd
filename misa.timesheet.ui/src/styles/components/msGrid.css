@@ -1,10 +1,9 @@
 .ms-grid {
     width: auto;
     height: 100%;
-    background: green;
 }
 
-.grid-footer {
+.ms-grid-footer {
     height: 61px;
     padding: 10px 0;
     background: var(--white);
@@ -14,6 +13,14 @@
 .ms-grid-row:hover {
     background-color: var(--primary-bg) !important;
     cursor: pointer !important;
+}
+
+.ms-grid-row .ms-button {
+    display: none !important;
+}
+
+.ms-grid-row:hover .ms-button {
+    display: inline-block !important;
 }
 
 .ms-grid-row.selected {
@@ -30,4 +37,14 @@
 .ms-grid td,
 .ms-grid th {
     border-bottom-color: rgb(224, 224, 224) !important;
+}
+
+
+/* no content grid */
+
+.ms-grid-no-content {
+    width: max-content;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
 }

@@ -1,7 +1,9 @@
 <template>
-  <div class="ms-input" :class="[iconRight, disable]">
+  <div class="ms-input" :class="[iconRight, { disabled: disabled }]">
     <i class="ms-icon" v-if="icon" :class="icon"></i>
     <input
+      v-model="inputVal"
+      ref="input"
       :disabled="disabled"
       class="ms-input-item"
       :placeholder="hintText"
@@ -20,7 +22,17 @@ export default {
     disabled: {
       type: [String, Boolean]
     },
-    disable: String
+    value: {}
+  },
+  computed: {
+    inputVal: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      }
+    }
   }
 };
 </script>
@@ -30,6 +42,8 @@ export default {
 input default
 -------------*/
 .ms-input {
+  color: var(--black);
+  font-weight: normal;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,9 +55,9 @@ input default
   border-radius: var(--input-border-radius);
 }
 /*-------------
-input disable
+input disabled
 -------------*/
-.ms-input.disable {
+.ms-input.disabled {
   background-color: #ebebeb !important;
   border-color: #e0e0e0 !important;
   pointer-events: none;

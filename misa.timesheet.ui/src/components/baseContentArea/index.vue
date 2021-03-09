@@ -2,6 +2,7 @@
   <div class="base-content-area">
     <div class="content-header">
       <div
+        v-if="!isShowMultipleDelete"
         class="d-flex justify-space-between align-center"
         style="height: 100%"
       >
@@ -17,21 +18,40 @@
             hintText="Tìm kiếm"
             class="m-r-8"
           ></ms-input>
-          <div style="width: 300px"></div>
           <ms-button
-            @click.native="showDialog"
+            @click.native="btnAddClick"
             class="m-r-8"
             icon="icon-add"
             type="primary"
             buttonText="Thêm"
           ></ms-button>
           <ms-button
+            type="filter"
             icon="icon-filter"
             @click.native="toggleShowFilter()"
           ></ms-button>
         </div>
       </div>
+      <div v-else class="d-flex align-center">
+        <div>
+          Đã chọn <b class="ml-2">{{ items.length }}</b>
+        </div>
+        <div
+          @click="unSelect"
+          style="color: rgb(239, 41, 47); cursor: pointer;"
+          class="mx-4"
+        >
+          Bỏ chọn
+        </div>
+        <ms-button
+          type="multiple-delete"
+          icon="icon-delete"
+          buttonText="Xóa"
+          @click.native="deleteRecords"
+        ></ms-button>
+      </div>
     </div>
+
     <div class="content-main">
       <slot name="contentMain" />
     </div>
@@ -39,6 +59,7 @@
 </template>
 
 <script>
+import EventBus from "@/EventBus.js";
 export default {
   name: "BaseContentArea",
   props: {
@@ -52,20 +73,33 @@ export default {
     isShowDialog: {
       type: [Boolean, String],
       default: false
+    },
+    isShowMultipleDelete: {
+      type: [Boolean, String],
+      default: false
+    },
+    items: {
+      type: [Array],
+      default: () => []
     }
   },
   methods: {
     toggleShowFilter() {
       this.$emit("toggleShowFilter");
     },
-    showDialog() {
-      this.$emit("showDialog");
+    btnAddClick() {
+      this.$emit("btnAddClick");
+      this.$emit("focusInput");
+    },
+    unSelect() {
+      EventBus.$emit("unSelect");
+    },
+    deleteRecords() {
+      this.$emit("deleteRecords");
     }
   },
   data() {
-    return {
-      options: ["a", "b", "c"]
-    };
+    return {};
   }
 };
 </script>

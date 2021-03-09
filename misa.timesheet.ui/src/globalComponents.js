@@ -1,7 +1,13 @@
 import Vue from 'vue'
 
-import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
+import DatePicker from 'vue2-datepicker';
+Vue.component('date-picker', DatePicker)
+
+import { DxSelectBox } from "devextreme-vue/select-box";
+Vue.component('dx-select-box', DxSelectBox)
+
+import { DxTooltip } from 'devextreme-vue/tooltip';
+Vue.component('dx-tooltip', DxTooltip)
 
 import mainLayout from '@/layouts/mainLayout';
 Vue.component(mainLayout.name, mainLayout);
@@ -42,11 +48,14 @@ Vue.component(msGrid.name, msGrid);
 import msFilter from '@/components/msFilter';
 Vue.component(msFilter.name, msFilter);
 
+import msAdjustColumn from '@/components/msAdjustColumn';
+Vue.component(msAdjustColumn.name, msAdjustColumn);
+
 import msCheckbox from '@/components/msCheckbox';
 Vue.component(msCheckbox.name, msCheckbox);
 
-import msSelect from '@/components/msSelect';
-Vue.component(msSelect.name, msSelect);
-
 import msDialog from '@/components/msDialog';
 Vue.component(msDialog.name, msDialog);
+
+import msTextArea from '@/components/msTextArea';
+Vue.component(msTextArea.name, msTextArea);

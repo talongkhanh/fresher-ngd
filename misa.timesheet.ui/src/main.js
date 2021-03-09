@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify'
 import router from './router'
 import './globalComponents.js';
 import '@/styles/root.css'
+import 'vue2-datepicker/index.css';
 
 const EventBus = new Vue()
 export default EventBus

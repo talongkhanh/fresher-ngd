@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app">
+  <v-app>
     <main-layout>
       <ms-navbar class="d-flex align-center">
         <div class="ms-navbar--header">
@@ -17,7 +17,7 @@
         </div>
         <div class="ms-con-items d-flex align-center">
           <ms-menu :menuItems="menuItems"> </ms-menu>
-          <div class="d-flex align-center ml-auto mr-24">
+          <div class="d-flex align-center ml-auto mr-6">
             <ms-navbar-item>
               <div class="version">Beta 2.34</div>
             </ms-navbar-item>

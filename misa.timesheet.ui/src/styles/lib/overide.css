@@ -110,3 +110,185 @@
     background: var(--dropdown-item-hover);
     color: var(--primary);
 }
+
+.dx-texteditor-input {
+    font-size: 'Roboto' !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black) !important;
+}
+
+.dx-item.dx-list-item {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.dx-item-content.dx-list-item-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.dx-list-item.dx-state-active {
+    background-color: var(--primary-bg) !important;
+    color: #333 !important;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-state-focused {
+    background-color: var(--primary-bg) !important;
+    color: #333 !important;
+}
+
+.mx-input:hover,
+.mx-input:focus {
+    border-color: var(--primary) !important;
+}
+
+.mx-icon-calendar {
+    width: 24px;
+    height: 24px;
+    mask-image: url('../../assets/img/Icon.569cfdf.svg');
+    mask-repeat: no-repeat;
+    background-color: #666;
+    -webkit-mask-position: -48px -24px;
+    mask-position: -48px -24px;
+}
+
+.mx-datepicker {
+    width: 100% !important;
+}
+
+.mx-icon-calendar svg {
+    display: none;
+}
+
+.mx-table-date .today {
+    color: var(--primary) !important;
+}
+
+.mx-calendar-content .cell.active {
+    background-color: var(--primary) !important;
+}
+
+.mx-calendar-content .cell:hover {
+    background-color: var(--primary-bg) !important;
+}
+
+.mx-btn:hover {
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+
+/* node 1 */
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-list-item-selected.dx-state-hover:not(.dx-state-focused) {
+    background: var(--primary-bg) !important;
+    color: var(--black);
+}
+
+.dx-device-mobile .dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-list-item-selected {
+    background: var(--primary-bg) !important;
+    color: var(--primary) !important;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-list-item-selected {
+    background: var(--primary-bg) !important;
+    color: var(--primary);
+}
+
+
+/* node 6 */
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-state-hover {
+    background: var(--primary-bg) !important;
+    color: var(--black);
+}
+
+.dx-texteditor.dx-state-hover {
+    border-color: var(--primary);
+}
+
+.dx-texteditor.dx-state-active.dx-editor-filled,
+.dx-texteditor.dx-state-active.dx-editor-outlined,
+.dx-texteditor.dx-state-active.dx-editor-underlined,
+.dx-texteditor.dx-state-focused.dx-editor-filled,
+.dx-texteditor.dx-state-focused.dx-editor-outlined,
+.dx-texteditor.dx-state-focused.dx-editor-underlined {
+    border-color: var(--primary);
+}
+
+.dx-dropdowneditor-icon {
+    width: 24px;
+    height: 24px;
+    mask-image: url('https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg');
+    mask-repeat: no-repeat;
+    background-color: #666!important;
+    mask-position: -192px 0;
+}
+
+.dx-dropdowneditor-icon {
+    width: 24px;
+    height: 24px;
+    mask-image: url('https://amisdemo.misacdn.net/apps/timesheetstatic/img/Icon.569cfdf.svg');
+    mask-repeat: no-repeat;
+    background-color: #666!important;
+    mask-position: -192px 0;
+}
+
+.dx-button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dx-dropdowneditor-icon::before {
+    content: "";
+    position: unset;
+    display: block;
+    width: 18px;
+    top: 0;
+    margin-top: 0;
+    left: 0;
+    margin-left: 0;
+}
+
+.dx-list-item-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: table-cell;
+    width: 100%;
+    height: 36px;
+}
+
+.dx-texteditor-input {
+    color: var(--black) !important;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.dx-popup-content {
+    padding: 8px !important;
+    color: var(--white) !important;
+}
+
+.dx-overlay-content.dx-popup-normal.dx-resizable.dx-popup-inherit-height {
+    background: #000;
+    border: none;
+}
+
+.dx-popover-arrow::after {
+    background: #000 !important;
+    border-color: transparent !important;
+    top: -1px;
+}
+
+.mx-input-wrapper:hover .mx-icon-calendar {
+    display: block !important;
+}
+
+.mx-input-wrapper:hover .mx-icon-clear {
+    display: none !important;
+}

@@ -1,5 +1,5 @@
 <template>
-  <div id="content-arena">
+  <div id="content-area">
     <slot />
   </div>
 </template>

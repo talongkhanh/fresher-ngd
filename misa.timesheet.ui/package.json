@@ -10,9 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "devextreme": "^20.2.5",
+    "devextreme-vue": "^20.2.5",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-select": "^3.11.2",
+    "vue2-datepicker": "^3.9.0",
     "vuetify": "^2.4.5"
   },
   "devDependencies": {

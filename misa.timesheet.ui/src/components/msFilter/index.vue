@@ -1,12 +1,16 @@
 <template>
   <div class="ms-filter">
     <div class="ms-filter-header">
-      <div class="d-flex justify-space-between">
+      <div class="d-flex justify-space-between mb-3">
         <h2 class="ms-filter-header-text">Bộ lọc</h2>
         <i @click="closeFilter" class="ms-icon icon-close"></i>
       </div>
       <div class="ms-filter-header-search">
-        <ms-input icon="icon-search" hintText="Tìm kiếm"></ms-input>
+        <ms-input
+          ref="msInput"
+          icon="icon-search"
+          hintText="Tìm kiếm"
+        ></ms-input>
       </div>
     </div>
     <div class="ms-filter-option">
@@ -51,6 +55,9 @@ export default {
     closeFilter() {
       this.$emit("closeFilter");
     }
+  },
+  mounted() {
+    this.$refs.msInput.$refs.input.focus();
   }
 };
 </script>
@@ -66,6 +73,8 @@ export default {
   padding-bottom: 16px;
   display: flex;
   flex-direction: column;
+  z-index: 2 !important;
+  background: var(--white);
 }
 
 .ms-filter-header {
