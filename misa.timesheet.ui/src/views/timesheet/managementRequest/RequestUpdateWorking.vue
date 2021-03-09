@@ -90,6 +90,7 @@
                   placeholder=""
                   :search-enabled="true"
                   :data-source="applicants"
+                  noDataText="Không có dữ liệu"
                   display-expr="name"
                   value-expr="name"
                   v-model:value="request.applicant"
@@ -302,7 +303,7 @@
         <div style="height: 100%;" slot="contentMain" class="d-flex">
           <ms-grid
             :headers="headers"
-            :items="items"
+            :items="itemsActive"
             class="flex-grow-1"
             @selectionChange="selectionChange"
             @deleteRecord="handleDeleteRecord"
@@ -357,7 +358,7 @@ export default {
         }
       ],
       headers: [
-        "Người nộp đơn",
+        "Người đề nghị",
         "Người duyệt",
         "Ngày lập",
         "Ngày làm việc",
@@ -399,6 +400,40 @@ export default {
         status.selected = false;
       });
       item.selected = true;
+      if (item.id == "") {
+        this.items = this.items.map(item => {
+          item.isActive = true;
+          return item;
+        });
+      } else if (item.id == 1) {
+        this.items = this.items.map(item => {
+          if (item.status != "Chờ duyệt") {
+            item.isActive = false;
+          } else {
+            item.isActive = true;
+          }
+          return item;
+        });
+      } else if (item.id == 2) {
+        this.items = this.items.map(item => {
+          if (item.status != "Đã duyệt") {
+            item.isActive = false;
+          } else {
+            item.isActive = true;
+          }
+          return item;
+        });
+      } else if (item.id == 3) {
+        this.items = this.items.map(item => {
+          if (item.status != "Từ chối") {
+            item.isActive = false;
+          } else {
+            item.isActive = true;
+          }
+          return item;
+        });
+      }
+      console.log(this.items);
     },
     focusInput() {
       setTimeout(() => {
@@ -511,6 +546,9 @@ export default {
     },
     endRecord() {
       return this.items.length;
+    },
+    itemsActive() {
+      return this.items.filter(item => item.isActive != false);
     }
   }
 };

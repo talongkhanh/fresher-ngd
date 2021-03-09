@@ -99,9 +99,7 @@ export default {
     }
   },
   data() {
-    return {
-      options: ["a", "b", "c"]
-    };
+    return {};
   }
 };
 </script>

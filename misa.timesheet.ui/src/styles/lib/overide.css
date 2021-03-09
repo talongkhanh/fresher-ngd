@@ -284,3 +284,11 @@
     border-color: transparent !important;
     top: -1px;
 }
+
+.mx-input-wrapper:hover .mx-icon-calendar {
+    display: block !important;
+}
+
+.mx-input-wrapper:hover .mx-icon-clear {
+    display: none !important;
+}

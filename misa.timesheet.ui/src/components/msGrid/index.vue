@@ -73,34 +73,35 @@
                 type="circle"
                 class="mr-4"
                 icon="icon-edit"
-                id="btn-edit"
-                @mouseenter.native="editVisible = !editVisible"
-                @mouseleave.native="editVisible = !editVisible"
                 @click.native="editRecord(item)"
               ></ms-button>
               <ms-button
                 @click.native="deleteRecord(item)"
                 type="circle"
                 icon="icon-delete"
-                id="btn-delete"
-                @mouseenter.native="deleteVisible = !deleteVisible"
-                @mouseleave.native="deleteVisible = !deleteVisible"
               >
               </ms-button>
-              <dx-popover
+              <!-- id="btn-delete"
+                @mouseenter="deleteVisible = !deleteVisible"
+                @mouseleave="deleteVisible = !deleteVisible"
+                id="btn-edit"
+                @mouseenter.native="editVisible = !editVisible"
+                @mouseleave.native="editVisible = !editVisible"
+              <dx-tooltip
+                @contentReady="d"
                 :visible="deleteVisible"
                 target="#btn-delete"
                 position="bottom"
               >
                 Xóa
-              </dx-popover>
-              <dx-popover
+              </dx-tooltip>
+              <dx-tooltip
                 :visible="editVisible"
                 target="#btn-edit"
                 position="bottom"
               >
                 Sửa
-              </dx-popover>
+              </dx-tooltip> -->
             </td>
           </tr>
         </tbody>
@@ -251,6 +252,9 @@ export default {
     },
     formatDate(d) {
       return formatDate(d);
+    },
+    d() {
+      console.log(this);
     }
   },
   created() {

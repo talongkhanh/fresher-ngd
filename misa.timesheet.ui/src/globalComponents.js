@@ -6,8 +6,8 @@ Vue.component('date-picker', DatePicker)
 import { DxSelectBox } from "devextreme-vue/select-box";
 Vue.component('dx-select-box', DxSelectBox)
 
-import { DxPopover } from 'devextreme-vue/popover';
-Vue.component('dx-popover', DxPopover)
+import { DxTooltip } from 'devextreme-vue/tooltip';
+Vue.component('dx-tooltip', DxTooltip)
 
 import mainLayout from '@/layouts/mainLayout';
 Vue.component(mainLayout.name, mainLayout);
